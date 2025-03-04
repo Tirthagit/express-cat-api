@@ -2,6 +2,7 @@ const express = require("express");
 const connectDatabase = require("../../mongoose/db");
 const router = require("../routes");
 const path = require('path');
+const dotenv = require("dotenv-safe");
 
 const app = express();
 const port = process.env.PORT ?? 4200;
