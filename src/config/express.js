@@ -2,11 +2,15 @@ const express = require("express");
 const connectDatabase = require("../../mongoose/db");
 const router = require("../routes");
 const path = require('path');
-const dotenv = require("dotenv-safe");
+const vars = require("./vars");
 
 const app = express();
-const port = process.env.PORT ?? 4200;
-const hostName = process.env.HOST_NAME || "localhost";
+const port = vars.port;
+const hostName = vars.hostName
+
+const viewsPath = path.join(__dirname, "..", "views");
+app.set("views", viewsPath);
+app.set("view engine", "ejs")
 
 connectDatabase();
 
@@ -18,10 +22,10 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", router);
+app.use(router);
 
-app.get("/", (request, response) => {
-  response.status(200).send("Server running successfully!");
-});
+// app.get("/", (request, response) => {
+//   response.status(200).send("Server running successfully!");
+// });
 
 module.exports = { app, port, hostName };

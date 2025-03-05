@@ -4,15 +4,13 @@ const {
   createCat,
   deleteCats,
   getSingleCat,
+  insertCats,
 } = require("../controllers/kittyController");
 const kittyRoute = express.Router();
 
-kittyRoute
-  .route("/")
-  .get(getCats)
-  .post(createCat)
-  .delete(deleteCats);
+kittyRoute.route("/").get(getCats).post(createCat).delete(deleteCats);
 
-  kittyRoute.route("/:cat").get(getSingleCat);
+kittyRoute.route("/bulk-insert").post(insertCats);
+kittyRoute.route("/:cat").get(getSingleCat);
 
 module.exports = kittyRoute;
