@@ -34,6 +34,16 @@ const createCat = asyncHandler(async (request, response) => {
   }
 });
 
+const updateCat = asyncHandler(async (request, response) => {
+  try {
+    const { fieldName, value } = request.body;
+    const updatedCat = await Kitten.findOneAndUpdate({ [fieldName]: value })
+    await updatedCat.save();
+  } catch (error) {
+    
+  }
+});
+
 const deleteCats = asyncHandler(async (request, response) => {
   try {
     await Kitten.deleteMany();
